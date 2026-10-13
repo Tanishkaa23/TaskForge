@@ -76,7 +76,7 @@ The API and worker run independently. The API handles incoming requests and job 
 1. Clone the repository.
 
 ```bash
-git clone <your-github-repository-url>
+git clone git clone https://github.com/Tanishkaa23/TaskForge.git
 cd TaskForge/server
 ```
 
