@@ -1,0 +1,42 @@
+services:
+  api:
+    build: .
+    command: npm start
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/taskforge
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - mongo
+      - redis
+
+  worker:
+    build: .
+    command: npm run worker
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/taskforge
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:8
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongo_data:
+  redis_data:
